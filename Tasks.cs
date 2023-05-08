@@ -1,17 +1,48 @@
-﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// LFInteractive LLC. - All Rights Reserved
+using Newtonsoft.Json;
 
 namespace ExerciseTasks;
 
-    public class Tasks
+public struct PushUps : ITaskItem
+{
+    public string TaskType { get; set; } = "PushUps";
+    public int Count { get; set; }
+    public int XP { get; set; }
+    public bool IsInProgress { get; set; }
+
+    public PushUps()
+    {
+    }
+}
+
+public struct SitUps : ITaskItem
+{
+    public string TaskType { get; set; } = "SitUps";
+    public int Count { get; set; }
+    public int XP { get; set; }
+    public bool IsInProgress { get; set; }
+
+    public SitUps()
+    {
+    }
+}
+
+public struct JumpingJacks : ITaskItem
+{
+    public string TaskType { get; set; } = "JumpingJacks";
+    public int Count { get; set; }
+    public int XP { get; set; }
+    public bool IsInProgress { get; set; }
+
+    public JumpingJacks()
+    {
+    }
+}
+
+public class Tasks
 {
     public static async Task GenerateTasksEnvironment()
     {
-
         PushUps pushUpstask = new PushUps();
         SitUps sitUpstask = new SitUps();
         JumpingJacks jumpingJackstask = new JumpingJacks();
@@ -19,7 +50,6 @@ namespace ExerciseTasks;
         {
             Name = "test",
             Password = "123"
-            
         };
         if (!Directory.Exists("C:\\Users\\Derpy\\Downloads\\ExerciseTasksUsers\\Users\\"))
         {
@@ -28,7 +58,7 @@ namespace ExerciseTasks;
         if (!File.Exists("C:\\Users\\Derpy\\Downloads\\ExerciseTasksUsers\\Users\\test.json"))
         {
             string json = JsonConvert.SerializeObject(user);
-            await Task.Run(() => File.WriteAllText("C:\\Users\\Derpy\\Downloads\\ExerciseTasksUsers\\Users\\test.json", json));            
+            await Task.Run(() => File.WriteAllText("C:\\Users\\Derpy\\Downloads\\ExerciseTasksUsers\\Users\\test.json", json));
         }
         if (!Directory.Exists("C:\\Users\\Derpy\\Downloads\\ExerciseTasksUsers\\Tasks\\"))
         {
@@ -49,29 +79,13 @@ namespace ExerciseTasks;
             string json = JsonConvert.SerializeObject(jumpingJackstask);
             await Task.Run(() => File.WriteAllText("C:\\Users\\Derpy\\Downloads\\ExerciseTasksUsers\\Tasks\\jumpingJackstask.json", json));
         }
-        
     }
 }
-public class PushUps
-{
-    public string TaskType = "PushUps";
-    public int Count = 10;
-    public int XP = 2;
-    public bool IsInProgress = false;
-}
-public class SitUps
-{
-    public string TaskType = "SitUps";
-    public int Count = 15;
-    public int XP = 2;
-    public bool IsInProgress = false;
-}
-public class JumpingJacks
-{
-    public string TaskType = "JumpingJacks";
-    public int Count = 15; 
-    public int XP = 2;
-    public bool IsInProgress = false;
-}
 
-
+public interface ITaskItem
+{
+    public string TaskType { get; set; }
+    public int Count { get; set; }
+    public int XP { get; set; }
+    public bool IsInProgress { get; set; }
+}
